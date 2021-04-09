@@ -132,11 +132,12 @@
 			<div class="sidebar-scroll">
 				<nav>
 					<ul class="nav">
-						<li><a href="index.html" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a>
+						<li><a href="#" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a>
 						</li>
 
-						<li><a href="#" class=""><i class="lnr lnr-download"></i> <span>Download</span></a></li>
-						<li><a href="notifications.html" class=""><i class="lnr lnr-alarm"></i>
+						<li><a href="../download" class=""><i class="lnr lnr-download"></i> <span>Download</span></a>
+						</li>
+						<li><a href="#" class=""><i class="lnr lnr-alarm"></i>
 								<span>Notifications</span></a></li>
 						<li>
 							<a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-cog"></i>
@@ -167,14 +168,14 @@
 								Select a Machine <span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="../dashboard/machine_data_1">Machine 1</a></li>
-								<li><a href="../dashboard/machine_data_2">Machine 2</a></li>
-								<li><a href="../dashboard/machine_data_3">Machine 3</a></li>
-								<li class="divider"></li>
-								<li><a href="#">Separated link</a></li>
+								<li><a class="dropdown-item active" href="../dashboard/machine_data_1">Machine 1</a>
+								</li>
+								<li><a class="dropdown-item" href="../dashboard/machine_data_2">Machine 2</a></li>
+								<li><a class="dropdown-item" href="../dashboard/machine_data_3">Machine 3</a></li>
 							</ul>
 						</div>
 					</center>
+
 					<br><br>
 					<!-- OVERVIEW -->
 					<div class="panel panel-headline">
@@ -543,7 +544,7 @@
 		<div class="clearfix"></div>
 		<footer>
 			<div class="container-fluid">
-				<p class="copyright">&copy; 2017 <a href="https://www.themeineed.com" target="_blank">Theme I Need</a>.
+				<p class="copyright">&copy; 2021 <a href="#" target="_blank">Rvolt INC</a>.
 					All Rights Reserved.</p>
 			</div>
 		</footer>
@@ -674,6 +675,13 @@
 
 		});
 	</script>
+
+	<script type="text/javascript">
+		function handleSelect(elm) {
+			window.location = elm.value;
+		}
+	</script>
+	Share
 </body>
 
 </html>

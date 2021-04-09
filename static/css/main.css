@@ -1761,5 +1761,26 @@ ul.activity-timeline > li {
   .project-table > tbody > tr > td .avatar {
     width: 22px;
     border: 1px solid #CCC; }
+.form-select .dropdown-menu li a:hover {
+    color: whitesmoke !important;
+    background: #bf5279 !important;
+}
 
+.btn-group-lg > .btn, .btn-lg {
+    padding: 10px 280px;
+}
+.dropdown-menu>li>a:hover {
+    color: #262626;
+    text-decoration: none;
+    background-color: #84abee;
+}
+.dropdown-menu>li>a {
+    display: block;
+    padding: 3px 320px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+}
 /*# sourceMappingURL=main.css.map */

@@ -1,11 +1,12 @@
-from flask import Flask, redirect, url_for, request, render_template, jsonify
+from flask import Flask, redirect, url_for, request, render_template, jsonify, send_file
 from jinja2 import Template
 import csv
 from collections import defaultdict
 from flask_login import login_user, logout_user, login_required
+import requests
 
 app = Flask(__name__)
-log = 1
+log = 0
 
 
 @app.route("/")
@@ -26,10 +27,13 @@ def login_post():
     if request.method == "POST":
         user = request.form["email"]
         pass1 = request.form["password"]
-        if user == pass1:
-            global log
-            log = 1
-            return redirect(url_for("dashboard"))
+        if user:
+            if user == pass1:
+                global log
+                log = 1
+                return redirect(url_for("dashboard"))
+            else:
+                return render_template("login.html", result=flash_data)
         else:
             return render_template("login.html", result=flash_data)
 
@@ -45,7 +49,6 @@ def machine_detail_api_call(machine_name):
             for row in reader:
                 for (k, v) in row.items():
                     columns[k].append(v)
-        print("hi")
         # print(columns["PERIOD"][9])
         print(columns["OPERATE Time"][7])
         # desired_array = map(int, columns["Period"][8])
@@ -67,6 +70,17 @@ def dashboard():
         print(columns["PERIOD"][7])
         print(columns["OPERATE Time"][7])
         return render_template("dashboard.html", data=columns)
+
+
+@app.route("/download/<machine_name>")
+def machine_detail_download_api_call(machine_name):
+    path = "./downloads/"+machine_name+".xls"
+    return send_file(path, as_attachment=True)
+
+
+@app.route("/download")
+def download():
+    return render_template("download.html")
 
 
 if __name__ == "__main__":
