@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<title>Dashboard | Klorofil - Free Bootstrap Dashboard Template</title>
+	<title>Dashboard | MachData</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -51,6 +51,185 @@
 				}]
 			});
 			chart.render();
+			var da = {{ (data['OPERATE Time'][1] | int / 3600) | round
+		}}; var da1 = {{ (data1['OPERATE Time'][1] | int / 3600) | round
+		}}; var da2 = {{ (data2['OPERATE Time'][1] | int / 3600) | round
+		}}; var da3 = {{ (data3['OPERATE Time'][1] | int / 3600) | round
+		}};
+
+		var dat = {{ (data['STOP Time'][1] | int / 3600) | round
+		}}; var dat1 = {{ (data1['STOP Time'][1] | int / 3600) | round
+		}}; var dat2 = {{ (data2['STOP Time'][1] | int / 3600) | round
+		}}; var dat3 = {{ (data3['STOP Time'][1] | int / 3600) | round
+		}};
+		var data = {{ (data['ALARM Time'][1] | int / 3600) | round
+		}}; var data1 = {{ (data1['ALARM Time'][1] | int / 3600) | round
+		}}; var data2 = {{ (data2['ALARM Time'][1] | int / 3600) | round
+		}}; var data3 = {{ (data3['ALARM Time'][1] | int / 3600) | round
+		}};
+
+		var dataa = {{ (data['DISCONNECT Time'][1] | int / 3600) | round
+		}}; var dataa1 = {{ (data1['DISCONNECT Time'][1] | int / 3600) | round
+		}}; var dataa2 = {{ (data2['DISCONNECT Time'][1] | int / 3600) | round
+		}}; var dataa3 = {{ (data3['DISCONNECT Time'][1] | int / 3600) | round
+		}};
+		var chart1 = new CanvasJS.Chart("chartContainer1", {
+			animationEnabled: true,
+			title: {
+				text: "Monthly Analysis"
+			},
+			axisY: {
+				includeZero: false,
+				prefix: ""
+			},
+			toolTip: {
+				shared: true
+			},
+			legend: {
+				fontSize: 13
+			},
+			data: [{
+				type: "splineArea",
+				showInLegend: true,
+				name: "Operate Time",
+				yValueFormatString: "###",
+				xValueFormatString: "MMM YYYY",
+				dataPoints: [
+					{ x: new Date(2020, 11), y: da },
+					{ x: new Date(2021, 0), y: da1 },
+					{ x: new Date(2021, 1), y: da2 },
+					{ x: new Date(2021, 2), y: da3 },
+
+				]
+			},
+			{
+				type: "splineArea",
+				showInLegend: true,
+				name: "Stop time",
+				yValueFormatString: "###",
+				dataPoints: [
+					{ x: new Date(2020, 11), y: dat },
+					{ x: new Date(2021, 0), y: dat1 },
+					{ x: new Date(2021, 1), y: dat2 },
+					{ x: new Date(2021, 2), y: dat3 },
+
+				]
+			},
+			{
+				type: "splineArea",
+				showInLegend: true,
+				name: "Alarm time",
+				yValueFormatString: "###",
+				dataPoints: [
+					{ x: new Date(2020, 11), y: data },
+					{ x: new Date(2021, 0), y: data1 },
+					{ x: new Date(2021, 1), y: data2 },
+					{ x: new Date(2021, 2), y: data3 },
+
+				]
+			},
+			{
+				type: "splineArea",
+				showInLegend: true,
+				yValueFormatString: "###",
+				name: "Disconnect Time",
+				dataPoints: [
+					{ x: new Date(2020, 11), y: dataa },
+					{ x: new Date(2021, 0), y: dataa1 },
+					{ x: new Date(2021, 1), y: dataa2 },
+					{ x: new Date(2021, 2), y: dataa3 },
+
+				]
+			}]
+		});
+		chart1.render();
+
+		var chart2 = new CanvasJS.Chart("chartContainer2", {
+			animationEnabled: true,
+			title: {
+				text: "Month wise data"
+			},
+			axisY: {
+				title: "Time in Hours",
+				titleFontColor: "#4F81BC",
+				lineColor: "#4F81BC",
+				labelFontColor: "#4F81BC",
+				tickColor: "#4F81BC"
+			},
+			toolTip: {
+				shared: true
+			},
+			legend: {
+				cursor: "pointer",
+				itemclick: toggleDataSeries
+			},
+			data: [{
+				type: "column",
+				name: "Operational Time",
+				legendText: "Operational Time",
+				showInLegend: true,
+				dataPoints: [
+					{ label: "December - 2020", y: da },
+					{ label: "January - 2021", y: da1 },
+					{ label: "February - 2021", y: da2 },
+					{ label: "March - 2021", y: da3 },
+
+				]
+			},
+			{
+				type: "column",
+				name: "Stop Time",
+				legendText: "Stop Time",
+				axisYType: "secondary",
+				showInLegend: true,
+				dataPoints: [
+					{ label: "December - 2020", y: dat },
+					{ label: "January - 2021", y: dat1 },
+					{ label: "February - 2021", y: dat2 },
+					{ label: "March - 2021", y: dat3 },
+
+				]
+			},
+			{
+				type: "column",
+				name: "Alarm Time",
+				legendText: "Alarm Time",
+				axisYType: "secondary",
+				showInLegend: true,
+				dataPoints: [
+					{ label: "December - 2020", y: data + 10 },
+					{ label: "January - 2021", y: data1 + 10 },
+					{ label: "February - 2021", y: data2 + 10 },
+					{ label: "March - 2021", y: data3 + 10 },
+
+				]
+			},
+			{
+				type: "column",
+				name: "Disconnect Time",
+				legendText: "Disconnect Time",
+				axisYType: "secondary",
+				showInLegend: true,
+				dataPoints: [
+					{ label: "December - 2020", y: dataa },
+					{ label: "January - 2021", y: dataa1 },
+					{ label: "February - 2021", y: dataa2 },
+					{ label: "March - 2021", y: dataa3 },
+
+				]
+			}
+			]
+		});
+		chart2.render();
+		}
+		function toggleDataSeries(e) {
+			if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+				e.dataSeries.visible = false;
+			}
+			else {
+				e.dataSeries.visible = true;
+			}
+			chart2.render();
 		}
 
 		function explodePie(e) {
@@ -62,6 +241,7 @@
 			e.chart.render();
 
 		}
+
 	</script>
 </head>
 
@@ -71,7 +251,7 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="index.html"><img src="../static/img/logo-dark.png" alt="Klorofil Logo"
+				<a href="index.html"><img src="../static/img/logo-ark.png" alt="MachData Logo"
 						class="img-responsive logo"></a>
 			</div>
 			<div class="container-fluid">
@@ -144,9 +324,9 @@
 								<span>Others</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages" class="collapse ">
 								<ul class="nav">
-									<li><a href="page-profile.html" class="">Profile</a></li>
-									<li><a href="page-login.html" class="">Login</a></li>
-									<li><a href="page-lockscreen.html" class="">Lockscreen</a></li>
+									<li><a href="#" class="">Profile</a></li>
+									<li><a href="#" class="">Login</a></li>
+									<li><a href="#" class="">Lockscreen</a></li>
 								</ul>
 							</div>
 						</li>
@@ -172,206 +352,121 @@
 								</li>
 								<li><a class="dropdown-item" href="../dashboard/machine_data_2">Machine 2</a></li>
 								<li><a class="dropdown-item" href="../dashboard/machine_data_3">Machine 3</a></li>
+								<li><a class="dropdown-item" href="../dashboard/machine_data_4">Machine 4</a></li>
+								<li><a class="dropdown-item" href="../dashboard/machine_data_5">Machine 5</a></li>
+
 							</ul>
 						</div>
-					</center>
-
-					<br><br>
-					<!-- OVERVIEW -->
-					<div class="panel panel-headline">
-						<div class="panel-heading">
-							<h3 class="panel-title">Monthly Overview</h3>
-							<p class="panel-subtitle">Period: Aug 14, 2020 - Oct 21, 2020</p>
+						<br><br>
+						<br>
+						<div class="panel panel-headline">
+							<h2>{{mname}}</h2>
 						</div>
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-md-3">
-									<div class="metric">
-										<span class="icon"><i class="fa fa-download"></i></span>
-										<p>
-											<span class="number">{{(data['OPERATE Time'][1]|int/60)|round}}</span>
-											<span class="title">Total Operation Time</span>
-										</p>
-									</div>
-								</div>
-								<div class="col-md-3">
-									<div class="metric">
-										<span class="icon"><i class="fa fa-shopping-bag"></i></span>
-										<p>
-											<span class="number">{{(data["STOP Time"][1]|int/60)|round}}</span>
-											<span class="title">Total Stop Time</span>
-										</p>
-									</div>
-								</div>
-								<div class="col-md-3">
-									<div class="metric">
-										<span class="icon"><i class="fa fa-eye"></i></span>
-										<p>
-											<span class="number">{{(data["ALARM Time"][1]| int/60)|round}}</span>
-											<span class="title">Total Alarm Time</span>
-										</p>
-									</div>
-								</div>
-								<div class="col-md-3">
-									<div class="metric">
-										<span class="icon"><i class="fa fa-bar-chart"></i></span>
-										<p>
-											<span class="number">{{(data["EMERGENCY Time"][1]| int/60)|round}}</span>
-											<span class="title">Total Emergency Time</span>
-										</p>
-									</div>
+				</div>
+				</center>
+
+				<br><br>
+				<!-- OVERVIEW -->
+				<div class="panel panel-headline">
+					<div class="panel-heading">
+						<h3 class="panel-title">Monthly Overview</h3>
+						<p class="panel-subtitle">Period: Dec 14, 2020 - March 21, 2021</p>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-3">
+								<div class="metric">
+									<span class="icon"><i class="fa fa-download"></i></span>
+									<p>
+										<span class="number">{{(data['OPERATE Time'][1]|int/60)|round}}</span>
+										<span class="title">Total Operation Time</span>
+									</p>
 								</div>
 							</div>
-							<div class="row">
-
-								<div class="col-md-9">
-									<div id="headline-chart" class="ct-chart"></div>
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-									<i class="fa fa-dot-circle-o text-primary"></i> Operational Time in Minutes
-
-								</div>
-								<div class="col-md-3">
-									<div class="weekly-summary text-right">
-										<span class="number">{{(data["MANUAL Time"][1]| int/60)|round}}</span> <span
-											class="percentage"><i class="fa fa-caret-up text-success"></i> 0%</span>
-										<span class="info-label">Total Manual Time</span>
-									</div>
-									<div class="weekly-summary text-right">
-										<span class="number">{{(data["SUSPEND Time"][1]| int/60)|round}}</span> <span
-											class="percentage"><i class="fa fa-caret-up text-success"></i> 23%</span>
-										<span class="info-label">Monthly Suspend Time</span>
-									</div>
-									<div class="weekly-summary text-right">
-										<span class="number">{{(data["DISCONNECT Time"][1]| int/60)|round}}</span> <span
-											class="percentage"><i class="fa fa-caret-down text-danger"></i> 8%</span>
-										<span class="info-label">Total Disconnect Time</span>
-									</div>
+							<div class="col-md-3">
+								<div class="metric">
+									<span class="icon"><i class="fa fa-shopping-bag"></i></span>
+									<p>
+										<span class="number">{{(data["STOP Time"][1]|int/60)|round}}</span>
+										<span class="title">Total Stop Time</span>
+									</p>
 								</div>
 							</div>
+							<div class="col-md-3">
+								<div class="metric">
+									<span class="icon"><i class="fa fa-eye"></i></span>
+									<p>
+										<span class="number">{{(data["ALARM Time"][1]| int/60)|round}}</span>
+										<span class="title">Total Alarm Time</span>
+									</p>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="metric">
+									<span class="icon"><i class="fa fa-bar-chart"></i></span>
+									<p>
+										<span class="number">{{(data["DISCONNECT Time"][1]| int/60)|round}}</span>
+										<span class="title">Total Disconnect Time</span>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+
+							<div class="col-md-12">
+								<div id="chartContainer1" style="height: 300px; "></div>
+
+
+
+							</div>
+
 						</div>
 					</div>
-					<!-- END OVERVIEW -->
-					<div class="row">
-						<div class="col-md-6">
-							<!-- RECENT PURCHASES -->
-							<div class="panel">
-								<div class="panel-heading">
-									<h3 class="panel-title">Recent Purchases</h3>
-									<div class="right">
-										<button type="button" class="btn-toggle-collapse"><i
-												class="lnr lnr-chevron-up"></i></button>
-										<button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
-									</div>
-								</div>
-								<div class="panel-body no-padding">
-									<table class="table table-striped">
-										<thead>
-											<tr>
-												<th>Order No.</th>
-												<th>Name</th>
-												<th>Amount</th>
-												<th>Date &amp; Time</th>
-												<th>Status</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td><a href="#">763648</a></td>
-												<td>Steve</td>
-												<td>$122</td>
-												<td>Oct 21, 2016</td>
-												<td><span class="label label-success">COMPLETED</span></td>
-											</tr>
-											<tr>
-												<td><a href="#">763649</a></td>
-												<td>Amber</td>
-												<td>$62</td>
-												<td>Oct 21, 2016</td>
-												<td><span class="label label-warning">PENDING</span></td>
-											</tr>
-											<tr>
-												<td><a href="#">763650</a></td>
-												<td>Michael</td>
-												<td>$34</td>
-												<td>Oct 18, 2016</td>
-												<td><span class="label label-danger">FAILED</span></td>
-											</tr>
-											<tr>
-												<td><a href="#">763651</a></td>
-												<td>Roger</td>
-												<td>$186</td>
-												<td>Oct 17, 2016</td>
-												<td><span class="label label-success">SUCCESS</span></td>
-											</tr>
-											<tr>
-												<td><a href="#">763652</a></td>
-												<td>Smith</td>
-												<td>$362</td>
-												<td>Oct 16, 2016</td>
-												<td><span class="label label-success">SUCCESS</span></td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-								<div class="panel-footer">
-									<div class="row">
-										<div class="col-md-6"><span class="panel-note"><i class="fa fa-clock-o"></i>
-												Last 24 hours</span></div>
-										<div class="col-md-6 text-right"><a href="#" class="btn btn-primary">View All
-												Purchases</a></div>
-									</div>
-								</div>
-							</div>
-							<!-- END RECENT PURCHASES -->
-						</div>
-						<div class="col-md-6">
-							<!-- MULTI CHARTS -->
-							<div class="panel">
-								<div class="panel-heading">
-									<h3 class="panel-title">Weekly Overview of a Month</h3>
-									<div class="right">
-										<button type="button" class="btn-toggle-collapse"><i
-												class="lnr lnr-chevron-up"></i></button>
-										<button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
-									</div>
-								</div>
-								<div class="panel-body">
-									<div id="visits-trends-chart" class="ct-chart"></div>
-									<i class="fa fa-dot-circle-o text-primary"></i> Operational Time in Hours
+				</div>
+				<!-- END OVERVIEW -->
+				<div class="row">
 
+					<div class="col-md-12">
+						<!-- MULTI CHARTS -->
+						<div class="panel">
+							<div class="panel-heading">
+								<h3 class="panel-title"> Overview of a Month</h3>
+								<div class="right">
+									<button type="button" class="btn-toggle-collapse"><i
+											class="lnr lnr-chevron-up"></i></button>
+									<button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
 								</div>
 							</div>
-							<!-- END MULTI CHARTS -->
+							<div class="panel-body">
+								<div id="chartContainer2" style="height: 300px; width: 100%;"></div>
+
+							</div>
 						</div>
+						<!-- END MULTI CHARTS -->
 					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<!-- TODO LIST -->
-							<div class="panel">
-								<div class="panel-heading">
-									<h3 class="panel-title">Pie Report</h3>
-									<div class="right">
-										<button type="button" class="btn-toggle-collapse"><i
-												class="lnr lnr-chevron-up"></i></button>
-										<button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
-									</div>
-								</div>
-								<div class="panel-body">
-									<div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;">
-									</div>
-									<script src="../static/js/canvasjs.min.js"></script>
-
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<!-- TODO LIST -->
+						<div class="panel">
+							<div class="panel-heading">
+								<h3 class="panel-title">Pie Report</h3>
+								<div class="right">
+									<button type="button" class="btn-toggle-collapse"><i
+											class="lnr lnr-chevron-up"></i></button>
+									<button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
 								</div>
 							</div>
-							<!-- END TODO LIST -->
+							<div class="panel-body">
+								<div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;">
+								</div>
+								<script src="../static/js/canvasjs.min.js"></script>
+
+							</div>
 						</div>
-						<!--div class="col-md-5">
+						<!-- END TODO LIST -->
+					</div>
+					<!--div class="col-md-5">
 						
 							<div class="panel panel-scrolling">
 								<div class="panel-heading">
@@ -421,133 +516,68 @@
 								</div>
 							</div>
 						</div-->
+				</div>
+				<div class="row">
+
+					<div class="col-md-6">
+						<!-- VISIT CHART -->
+						<div class="panel">
+							<div class="panel-heading">
+								<h3 class="panel-title">Spindle Temperature</h3>
+								<div class="right">
+									<button type="button" class="btn-toggle-collapse"><i
+											class="lnr lnr-chevron-up"></i></button>
+									<button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
+								</div>
+							</div>
+							<div class="panel-body">
+								<div id="visits-chart" class="ct-chart"></div>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i
+									class="fa fa-dot-circle-o text-primary"></i> Temperature in Degree
+
+							</div>
+						</div>
+						<!-- END VISIT CHART -->
 					</div>
-					<div class="row">
-						<div class="col-md-4">
-							<!-- TASKS -->
-							<div class="panel">
-								<div class="panel-heading">
-									<h3 class="panel-title">My Tasks</h3>
-									<div class="right">
-										<button type="button" class="btn-toggle-collapse"><i
-												class="lnr lnr-chevron-up"></i></button>
-										<button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
-									</div>
-								</div>
-								<div class="panel-body">
-									<ul class="list-unstyled task-list">
-										<li>
-											<p>Updating Users Settings <span class="label-percent">23%</span></p>
-											<div class="progress progress-xs">
-												<div class="progress-bar progress-bar-danger" role="progressbar"
-													aria-valuenow="23" aria-valuemin="0" aria-valuemax="100"
-													style="width:23%">
-													<span class="sr-only">23% Complete</span>
-												</div>
-											</div>
-										</li>
-										<li>
-											<p>Load &amp; Stress Test <span class="label-percent">80%</span></p>
-											<div class="progress progress-xs">
-												<div class="progress-bar progress-bar-success" role="progressbar"
-													aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"
-													style="width: 80%">
-													<span class="sr-only">80% Complete</span>
-												</div>
-											</div>
-										</li>
-										<li>
-											<p>Data Duplication Check <span class="label-percent">100%</span></p>
-											<div class="progress progress-xs">
-												<div class="progress-bar progress-bar-success" role="progressbar"
-													aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
-													style="width: 100%">
-													<span class="sr-only">Success</span>
-												</div>
-											</div>
-										</li>
-										<li>
-											<p>Server Check <span class="label-percent">45%</span></p>
-											<div class="progress progress-xs">
-												<div class="progress-bar progress-bar-warning" role="progressbar"
-													aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"
-													style="width: 45%">
-													<span class="sr-only">45% Complete</span>
-												</div>
-											</div>
-										</li>
-										<li>
-											<p>Mobile App Development <span class="label-percent">10%</span></p>
-											<div class="progress progress-xs">
-												<div class="progress-bar progress-bar-danger" role="progressbar"
-													aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"
-													style="width: 10%">
-													<span class="sr-only">10% Complete</span>
-												</div>
-											</div>
-										</li>
-									</ul>
+					<div class="col-md-6">
+						<!-- REALTIME CHART -->
+						<div class="panel">
+							<div class="panel-heading">
+								<h3 class="panel-title">Spindle Load</h3>
+								<div class="right">
+									<button type="button" class="btn-toggle-collapse"><i
+											class="lnr lnr-chevron-up"></i></button>
+									<button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
 								</div>
 							</div>
-							<!-- END TASKS -->
-						</div>
-						<div class="col-md-4">
-							<!-- VISIT CHART -->
-							<div class="panel">
-								<div class="panel-heading">
-									<h3 class="panel-title">Website Visits</h3>
-									<div class="right">
-										<button type="button" class="btn-toggle-collapse"><i
-												class="lnr lnr-chevron-up"></i></button>
-										<button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
-									</div>
+							<div class="panel-body">
+								<div id="system-load" class="easy-pie-chart" data-percent="70">
+									<span class="percent">70</span>
 								</div>
-								<div class="panel-body">
-									<div id="visits-chart" class="ct-chart"></div>
-								</div>
+								<h4>Spindle Load</h4>
+								<ul class="list-unstyled list-justify">
+									<li>High: <span>220%</span></li>
+									<li>Average: <span>77%</span></li>
+									<li>Low: <span>5%</span></li>
+
+								</ul>
 							</div>
-							<!-- END VISIT CHART -->
 						</div>
-						<div class="col-md-4">
-							<!-- REALTIME CHART -->
-							<div class="panel">
-								<div class="panel-heading">
-									<h3 class="panel-title">System Load</h3>
-									<div class="right">
-										<button type="button" class="btn-toggle-collapse"><i
-												class="lnr lnr-chevron-up"></i></button>
-										<button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
-									</div>
-								</div>
-								<div class="panel-body">
-									<div id="system-load" class="easy-pie-chart" data-percent="70">
-										<span class="percent">70</span>
-									</div>
-									<h4>CPU Load</h4>
-									<ul class="list-unstyled list-justify">
-										<li>High: <span>95%</span></li>
-										<li>Average: <span>87%</span></li>
-										<li>Low: <span>20%</span></li>
-										<li>Threads: <span>996</span></li>
-										<li>Processes: <span>259</span></li>
-									</ul>
-								</div>
-							</div>
-							<!-- END REALTIME CHART -->
-						</div>
+						<!-- END REALTIME CHART -->
 					</div>
 				</div>
 			</div>
-			<!-- END MAIN CONTENT -->
 		</div>
-		<!-- END MAIN -->
-		<div class="clearfix"></div>
-		<footer>
-			<div class="container-fluid">
-				<p class="copyright">&copy; 2021 <a href="#" target="_blank">Rvolt INC</a>.
-					All Rights Reserved.</p>
-			</div>
-		</footer>
+		<!-- END MAIN CONTENT -->
+	</div>
+	<!-- END MAIN -->
+	<div class="clearfix"></div>
+	<footer>
+		<div class="container-fluid">
+			<p class="copyright">&copy; 2021 <a href="#" target="_blank">Rvolt INC</a>.
+				All Rights Reserved.</p>
+		</div>
+	</footer>
 	</div>
 	<!-- END WRAPPER -->
 	<!-- Javascript -->
@@ -630,9 +660,9 @@
 
 			// visits chart
 			data = {
-				labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+				labels: ['Axis - 1', 'Axis - 2', 'Axis - 3', 'Axis - 4', 'Spindle'],
 				series: [
-					[6384, 6342, 5437, 2764, 3958, 5068, 7654]
+					[26, 32, 20, 18, 44]
 				]
 			};
 
@@ -663,7 +693,7 @@
 
 			setInterval(function () {
 				var randomVal;
-				randomVal = getRandomInt(0, 100);
+				randomVal = getRandomInt(70, 90);
 
 				sysLoad.data('easyPieChart').update(randomVal);
 				sysLoad.find('.percent').text(randomVal);

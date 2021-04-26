@@ -43,17 +43,43 @@ def machine_detail_api_call(machine_name):
     if log == 0:
         return render_template("login.html")
     else:
-        columns = defaultdict(list)
-        with open("data/" + machine_name + ".csv") as f:
+        dec = defaultdict(list)
+        with open("data/Dec-2020/" + machine_name + ".csv") as f:
             reader = csv.DictReader(f)
             for row in reader:
                 for (k, v) in row.items():
-                    columns[k].append(v)
+                    dec[k].append(v)
+
+        jan = defaultdict(list)
+        with open("data/Jan-2021/" + machine_name + ".csv") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                for (k, v) in row.items():
+                    jan[k].append(v)
+
+        feb = defaultdict(list)
+        with open("data/Feb-2021/" + machine_name + ".csv") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                for (k, v) in row.items():
+                    feb[k].append(v)
+
+        mar = defaultdict(list)
+        with open("data/March-2021/" + machine_name + ".csv") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                for (k, v) in row.items():
+                    mar[k].append(v)
         # print(columns["PERIOD"][9])
-        print(columns["OPERATE Time"][7])
+        print(mar["OPERATE Time"][7])
         # desired_array = map(int, columns["Period"][8])
         # print(desired_array)
-        return render_template("dashboard.html", data=columns)
+        name = machine_name.replace("_", " ")
+        name = name.replace("m", "M")
+        name = name.replace("data", " ")
+        return render_template(
+            "dashboard.html", data=dec, data1=jan, data2=feb, data3=mar, mname=name
+        )
 
 
 @app.route("/dashboard")
@@ -62,20 +88,59 @@ def dashboard():
         return render_template("login.html")
     else:
         columns = defaultdict(list)
-        with open("data/machine_data_1.csv") as f:
+        with open("data/Dec-2020/machine_data_1.csv") as f:
             reader = csv.DictReader(f)
             for row in reader:
                 for (k, v) in row.items():
                     columns[k].append(v)
-        print(columns["PERIOD"][7])
+        jan = defaultdict(list)
+        with open("data/Jan-2021/machine_data_1.csv") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                for (k, v) in row.items():
+                    jan[k].append(v)
+
+        feb = defaultdict(list)
+        with open("data/Feb-2021/machine_data_1.csv") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                for (k, v) in row.items():
+                    feb[k].append(v)
+
+        mar = defaultdict(list)
+        with open("data/March-2021/machine_data_1.csv") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                for (k, v) in row.items():
+                    mar[k].append(v)
         print(columns["OPERATE Time"][7])
-        return render_template("dashboard.html", data=columns)
+        return render_template(
+            "dashboard.html",
+            data=columns,
+            data1=jan,
+            data2=feb,
+            data3=mar,
+            mname="Machine 1",
+        )
 
 
 @app.route("/download/<machine_name>")
 def machine_detail_download_api_call(machine_name):
-    path = "./downloads/"+machine_name+".xls"
+    path = "./downloads/" + machine_name + ".xls"
     return send_file(path, as_attachment=True)
+
+
+@app.route("/test")
+def multi_month_machine_data():
+    columns = defaultdict(list)
+    with open("data/Dec-2020/machine_data_1.csv") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            for (k, v) in row.items():
+                columns[k].append(v)
+    print(columns["PERIOD"][7])
+    print(columns["OPERATE Time"][7])
+    return columns
 
 
 @app.route("/download")
